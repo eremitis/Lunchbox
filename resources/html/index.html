@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta charset="UTF-8" />
+		<title>{page_title}</title>
+		<link href="resources/images/icons/png/favicon.png" type="image/png" rel="shortcut icon" />
+	</head>
+	<body id="body">
+ 		<header id="main_header">
+ 			<a href="/lunchbox/">
+ 				<div id="site_name_plus_logo">
+ 					<h1 id="site_name">LunchBox</h1><div id="logo"></div>
+ 				</div>
+ 			</a>
+            <nav>
+            	<ul id="header_navigation">
+                	<a href="account_settings.php" title="Ustawienia użytkownika" hidden="hidden">
+                		<li id="account_settings">Ustawienia użytkownika</li>
+               		</a>
+               		<a href="add_restaurant.php" title="Dodaj nową restaurację" id="add_restaurant_href">
+               			<li id="add_restaurant">Dodaj nową restaurację</li>
+					</a>
+               	</ul>
+            </nav>
+		</header> <!-- header end  -->
+        <div id="content">
+        	<div id="search_box" class="beforeGPS">
+        		<form method="get" action="get_menus_for.php">
+        			<label id="initial_status_box" for="search">Znajdź lokale w pobliżu adresu:<br /></label>
+        			<div id="search_plus_image">
+        				<img id="loading_icon" />
+        				<input id="search" type="search" name="address" placeholder="np. Włodarzewska 87, Warszawa" autofocus="autofocus" />
+        				<input id="search_icon" type="image" src="resources/images/icons/svg/search.svg" />
+        			</div>
+        		</form>
+        	</div>
+        	<div id="todays_menus" hidden="hidden"><p class="menus_description">Dzisiejsze menu</p>
+        	<p id="zero_menus">Brak aktualnych menu na dzisiaj</p>
+            </div><!-- todays_menus end -->
+            <div id="tomorrows_menus" hidden="hidden"><p class="menus_description">Jutrzejsze menu</p>
+            </div>
+            <div id="no_menu" hidden="hidden"><p class="menus_description">Lokale w okolicy bez aktualnego menu</p>
+            </div>
+            <div hidden="hidden" class="restaurant_card">
+            	<a class="place_details_anchor">
+            	<header class="restaurant_card_header">
+            		<h3 class="restaurant_name"></h3>
+            		<h1 class="restaurant_address"></h1>
+            		<p class="restaurant_distance_to"></p>
+            	</header>
+            	</a>
+                <article>
+	            	<div class="restaurant_menu">
+                	</div><!-- restaurant_menu end -->
+                	<div class="facebook">
+                	</div><!-- facebook end -->
+                	<div class="restaurant_card_footer">
+                		<div class="menu_price" title="Cena">
+                			<span class="menu_price_icon"><img src="resources/images/icons/svg/price.svg" style="height: 1.3em;vertical-align: middle;" /></span>
+                			<span class="menu_price_text"></span>
+                		</div>
+                		<div class="valid_hours" title="Menu ważne w godzinach">
+                			<span class="valid_hour_icon"><img src="resources/images/icons/svg/clock_white.svg" style="height: 1.3em;vertical-align: middle;" /></span>
+                			<span class="valid_hours_text"></span>
+                		</div>
+                		<a href="add_menu.php" class="add_menu_anchor">
+                		<div class="add_menu">
+                			<p>Dodaj nowe menu</p>
+            			</div>
+            			</a>
+            		</div>
+                </article>
+            </div><!-- restaurant_card end -->
+            <div id="error_box" hidden="hidden">
+            <img id="close_cross" src="resources/images/icons/svg/close_cross.svg" />
+            <p id="error_box_text"></p>
+            </div>
+            <div id="dialog_place_details">
+            	<iframe id="map_frame" seamless="seamless"></iframe>
+            	<div id="place_details_text_section">
+            		<div id="dialog_place_information">
+            			<h1 id="dialog_place_name"></h1>
+            			<div id="dialog_place_detailed_information">
+            			<p id="dialog_place_address">
+            				<span id="dialog_place_address_icon"></span>
+            				<span id="dialog_place_address_text"></span>
+            			</p>
+            			<p id="dialog_place_phone">
+            				<span id="dialog_place_phone_icon"></span>
+            				<span id="dialog_place_phone_text"></span>
+            			</p>
+            			<p id="dialog_place_website">
+            				<span id="dialog_place_website_icon"></span>
+            				<span id="dialog_place_website_text"></span>
+            			</p>
+            			<p id="dialog_place_hours">
+            				<span id="dialog_place_hours_icon"></span>
+            				<span id="dialog_place_hours_text"></span>
+            			</p>
+            			</div>
+            		</div>
+            		<div id=dialog_place_menu_section>
+            		<div id="dialog_place_menu_description">
+            			<span id="dialog_place_menu_description_icon"></span>
+            			<p id="dialog_place_menu_description_text"></p>
+            		</div>
+            		<div id=dialog_place_menu_additional_information>
+            		<p id="dialog_place_menu_price" title="Cena">
+            			<span id="dialog_place_menu_price_icon"></span>
+            			<span id="dialog_place_menu_price_text"></span>
+            		</p>
+            		<p id="dialog_place_menu_hours" title="Menu ważne w godzinach">
+            			<span id="dialog_place_menu_hours_icon"></span>
+            			<span id="dialog_place_menu_hours_text"></span>
+            		</p>
+            		</div>
+            		</div>
+            	</div>
+            </div><!-- dialog_place_details -->
+             <div id="dialog_add_menu_form" hidden="hidden">
+				<form id="add_menu_form" method="post" action="process_menu.php">
+					<p>
+                		<label for="restaurant_name">Restauracja:</label>
+						<input id="restaurant_name" readonly="readonly" type="text" name="restaurant_name" />
+            		</p>
+            		<p>
+                		<label for="menu_valid_from">Początek:</label>
+                		<img class="date_icon" src="resources/images/icons/svg/calendar.svg" />
+                		<input id="menu_valid_from" class="date" name="menu_valid_from" required="required" />
+            		</p>
+               		<p>
+                		<label for="menu_valid_to">Koniec:</label>
+                		<img class="date_icon" src="resources/images/icons/svg/calendar.svg" />
+                		<input id="menu_valid_to" class="date" name="menu_valid_to" required="required" />
+            		</p>
+            		<p>
+                		<label for="valid_hours_start">Godziny:</label>
+                		<img class="clock_icon" src="resources/images/icons/svg/clock.svg" />
+                		<input id="valid_hours_start" class="hours" name="valid_hours_start" required="required" />
+                		<label for="valid_hours_end">Do:</label>
+                		<input id="valid_hours_end" class="hours" name="valid_hours_end" required="required" />
+            		</p>
+            		<p>
+                		<label for="menu">Menu:</label>
+                		<textarea id="menu" name="menu" required="required" autofocus="autofocus"></textarea>
+                		<p id="sign_counter">pozostało: <span id="sign_counter_value">255</span> znak(ów)</p>
+                	</p>
+            		<p>
+                		<label for="price">Cena:</label>
+                		<input id="price" type="number" name="price" step="0.01" required="required" min="1.00"/>
+            		</p>
+            		<p>
+                		<label for="menu_name">Nazwa<wbr />(opcjonalne):</label>
+                		<input id="menu_name" type="text" name="menu_name" placeholder="np. wegetariańskie" />
+            		</p>
+            		<p>
+                		<input id="place_ID" type="hidden" name="place_ID" />
+                		<input id="submit_menu_button" type="submit" value="Wyślij" />
+            		</p>
+				</form>
+            </div><!-- dialog_add_menu_form -->
+            <div id="add_place_disclaimer" hidden="hidden">
+            <img id="close_cross_disclaimer" src="resources/images/icons/svg/close_cross_white.svg" />
+            <p>Przykro nam ale na chwilę obecną nasza strona
+             nie obsługuje bezpośrednio dodawania nowych lokali. W celu dodania nowego lokalu, dodaj go poprzez
+             Kreatora Map Google Maps. Więcej informacji na ten temat znajdziesz na stronie GOOGLE:<br />
+             <a href="https://support.google.com/mapmaker/answer/1096044?hl=pl&ref_topic=2802435">https://support.google.com/mapmaker/answer/1096044?hl=pl&ref_topic=2802435</a>
+             </div>
+        </div><!-- content end -->
+	</body>
+</html>
